@@ -1,6 +1,13 @@
 body {
   padding: 0;
   margin: 0;
+  background-image: linear-gradient(
+      rgba(160, 160, 161, 0.5),
+      rgba(109, 109, 108, 0.5)
+    ),
+    url('./img/bg.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 h1,

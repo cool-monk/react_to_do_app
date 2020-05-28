@@ -22,7 +22,7 @@ export default function LabTabs() {
   console.log(value);
 
   return (
-    <Container maxWidth='md'>
+    <>
       <Paper>
         <TabContext value={value}>
           <Tabs
@@ -52,6 +52,6 @@ export default function LabTabs() {
           <h1>Third tab</h1>
         </Paper>
       </div>
-    </Container>
+    </>
   );
 }

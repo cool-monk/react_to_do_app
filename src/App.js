@@ -23,7 +23,7 @@ function App() {
       >
         add_circle
       </AddCircleIcon>
-      <Container>
+      <Container maxWidth='md'>
         <Tab></Tab>
       </Container>
       {showModal ? (
