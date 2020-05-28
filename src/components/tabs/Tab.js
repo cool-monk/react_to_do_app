@@ -1,17 +1,15 @@
 import React from 'react';
-import { Paper, Grid } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
+import { Paper, Container } from '@material-ui/core';
 import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
-import TabList from '@material-ui/lab/TabList';
-import TabPanel from '@material-ui/lab/TabPanel';
 
 // import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+
+import { TodoTable } from '../index';
 
 export default function LabTabs() {
   // const classes = useStyles();
@@ -24,7 +22,7 @@ export default function LabTabs() {
   console.log(value);
 
   return (
-    <>
+    <Container maxWidth='md'>
       <Paper>
         <TabContext value={value}>
           <Tabs
@@ -35,16 +33,14 @@ export default function LabTabs() {
             textColor='secondary'
             aria-label='icon label tabs example'
           >
-            <Tab icon={<PhoneIcon />} label='RECENTS' />
-            <Tab icon={<FavoriteIcon />} label='FAVORITES' />
-            <Tab icon={<PersonPinIcon />} label='NEARBY' />
+            <Tab icon={<FormatListBulletedIcon />} label='All' />
+            <Tab icon={<AccessTimeIcon />} label='PENDING' />
+            <Tab icon={<CheckBoxIcon />} label='COMPLETED' />
           </Tabs>
         </TabContext>
       </Paper>
       <div hidden={value !== 0}>
-        <Paper style={{ minHeight: 500, padding: 20 }}>
-          <h1>this is it</h1>
-        </Paper>
+        <TodoTable></TodoTable>
       </div>
       <div hidden={value !== 1}>
         <Paper style={{ height: 500 }}>
@@ -56,6 +52,6 @@ export default function LabTabs() {
           <h1>Third tab</h1>
         </Paper>
       </div>
-    </>
+    </Container>
   );
 }

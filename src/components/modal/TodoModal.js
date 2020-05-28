@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-// import  from '@material-ui/core/TextField';
 import {
   Typography,
   TextField,
@@ -10,8 +9,19 @@ import {
   MenuItem,
   InputLabel,
   Select,
+  Grid,
+  Button,
+  Icon,
 } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import SaveIcon from '@material-ui/icons/Save';
+import ClearIcon from '@material-ui/icons/Clear';
+import JoditEditor from 'jodit-react';
 
 function getModalStyle() {
   const top = 50;
@@ -43,6 +53,8 @@ export default function SimpleModal(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const editor = useRef(null);
+  const [content, setContent] = useState('');
 
   const handleClose = () => {
     setOpen(true);
@@ -51,7 +63,6 @@ export default function SimpleModal(props) {
 
   return (
     <>
-      <p>this is it</p>
       <Modal
         open={!open}
         onClose={handleClose}
@@ -80,17 +91,26 @@ export default function SimpleModal(props) {
           </Box>
           <form className={classes.root} noValidate autoComplete='off'>
             <TextField
-              id='outlined-full-width'
+              id='standard-full-width'
               label='Title'
               style={{ margin: 8 }}
               placeholder='Title'
-              helperText='Full width!'
+              helperText='Less than 200 character'
               fullWidth
               margin='normal'
               InputLabelProps={{
                 shrink: true,
               }}
-              variant='outlined'
+            />
+
+            <Typography variant='subtitle2'>description</Typography>
+            <JoditEditor
+              ref={editor}
+              value={content}
+              //   config={config}
+              tabIndex={1} // tabIndex of textarea
+              onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+              onChange={(newContent) => {}}
             />
 
             <FormControl style={{ width: '100%' }}>
@@ -105,6 +125,42 @@ export default function SimpleModal(props) {
                 <MenuItem value={'High'}>High</MenuItem>
               </Select>
             </FormControl>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Grid container justify='space-around'>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant='inline'
+                  format='MM/dd/yyyy'
+                  margin='normal'
+                  id='date-picker-inline'
+                  label='Set Due Date'
+                  value='08/18/2014'
+                  //   onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  style={{ width: '100%' }}
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
+
+            <div className='modalActions'>
+              <Button
+                variant='outlined'
+                color='secondary'
+                startIcon={<ClearIcon></ClearIcon>}
+                style={{ marginRight: '10px' }}
+              >
+                Discard
+              </Button>
+              <Button
+                variant='contained'
+                color='primary'
+                endIcon={<SaveIcon></SaveIcon>}
+              >
+                Create
+              </Button>
+            </div>
           </form>
         </div>
       </Modal>
