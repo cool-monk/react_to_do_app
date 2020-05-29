@@ -19,8 +19,6 @@ export default function LabTabs() {
     setValue(newValue);
   };
 
-  console.log(value);
-
   return (
     <>
       <Paper>

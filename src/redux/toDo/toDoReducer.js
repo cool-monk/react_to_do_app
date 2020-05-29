@@ -6,11 +6,13 @@ const initialState = {
 
 const toDoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TODOS:
+    case ADD_TODOS: {
+      console.log(action.payload);
       return {
         ...state,
-        todoList: state.todoList.push(action.payload),
+        todoList: state.todoList.concat(action.payload),
       };
+    }
 
     default: {
       return state;
